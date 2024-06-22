@@ -1,0 +1,10 @@
+C:\My\Projects\C++\Experiments\StartTracker\StartTrackerWinForms\StarTracker\bin\Debug\StarTracker.exe.config
+C:\My\Projects\C++\Experiments\StartTracker\StartTrackerWinForms\StarTracker\bin\Debug\StarTracker.exe
+C:\My\Projects\C++\Experiments\StartTracker\StartTrackerWinForms\StarTracker\bin\Debug\StarTracker.pdb
+C:\My\Projects\C++\Experiments\StartTracker\StartTrackerWinForms\StarTracker\obj\Debug\StarTracker.csproj.AssemblyReference.cache
+C:\My\Projects\C++\Experiments\StartTracker\StartTrackerWinForms\StarTracker\obj\Debug\StarTracker.Form1.resources
+C:\My\Projects\C++\Experiments\StartTracker\StartTrackerWinForms\StarTracker\obj\Debug\StarTracker.Properties.Resources.resources
+C:\My\Projects\C++\Experiments\StartTracker\StartTrackerWinForms\StarTracker\obj\Debug\StarTracker.csproj.GenerateResource.cache
+C:\My\Projects\C++\Experiments\StartTracker\StartTrackerWinForms\StarTracker\obj\Debug\StarTracker.csproj.CoreCompileInputs.cache
+C:\My\Projects\C++\Experiments\StartTracker\StartTrackerWinForms\StarTracker\obj\Debug\StarTracker.exe
+C:\My\Projects\C++\Experiments\StartTracker\StartTrackerWinForms\StarTracker\obj\Debug\StarTracker.pdb
