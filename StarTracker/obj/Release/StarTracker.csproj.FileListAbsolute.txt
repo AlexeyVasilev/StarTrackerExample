@@ -1,10 +1,10 @@
 C:\My\Projects\C++\Experiments\StartTracker\StartTrackerWinForms\StarTracker\bin\Release\StarTracker.exe.config
 C:\My\Projects\C++\Experiments\StartTracker\StartTrackerWinForms\StarTracker\bin\Release\StarTracker.exe
 C:\My\Projects\C++\Experiments\StartTracker\StartTrackerWinForms\StarTracker\bin\Release\StarTracker.pdb
-C:\My\Projects\C++\Experiments\StartTracker\StartTrackerWinForms\StarTracker\obj\Release\StarTracker.csproj.AssemblyReference.cache
 C:\My\Projects\C++\Experiments\StartTracker\StartTrackerWinForms\StarTracker\obj\Release\StarTracker.Form1.resources
 C:\My\Projects\C++\Experiments\StartTracker\StartTrackerWinForms\StarTracker\obj\Release\StarTracker.Properties.Resources.resources
 C:\My\Projects\C++\Experiments\StartTracker\StartTrackerWinForms\StarTracker\obj\Release\StarTracker.csproj.GenerateResource.cache
 C:\My\Projects\C++\Experiments\StartTracker\StartTrackerWinForms\StarTracker\obj\Release\StarTracker.csproj.CoreCompileInputs.cache
 C:\My\Projects\C++\Experiments\StartTracker\StartTrackerWinForms\StarTracker\obj\Release\StarTracker.exe
 C:\My\Projects\C++\Experiments\StartTracker\StartTrackerWinForms\StarTracker\obj\Release\StarTracker.pdb
+C:\My\Projects\C++\Experiments\StartTracker\StartTrackerWinForms\StarTracker\obj\Release\StarTracker.csproj.AssemblyReference.cache

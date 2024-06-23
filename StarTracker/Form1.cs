@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 
 namespace StarTracker
 {
@@ -16,6 +17,10 @@ namespace StarTracker
         {
             InitializeComponent();
         }
+
+        [DllImport("StarFinderLibrary.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+        private static extern int TestFunc();
+       
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -27,6 +32,9 @@ namespace StarTracker
             MyImage = new Bitmap(fileToDisplay);
             pictureBox1.ClientSize = new Size(xSize, ySize);
             pictureBox1.Image = (Image)MyImage;
+
+            int resp = TestFunc();
+            label1.Text = resp.ToString();
         }
     }
 }
