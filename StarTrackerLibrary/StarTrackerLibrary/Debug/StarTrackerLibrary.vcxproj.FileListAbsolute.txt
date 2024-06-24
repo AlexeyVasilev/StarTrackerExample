@@ -1,1 +1,0 @@
-C:\My\Projects\C++\Experiments\StartTracker\StartTrackerWinForms\StarTrackerLibrary\StarTrackerLibrary\Debug\StarTrackerLibrary.exe
