@@ -4,7 +4,7 @@
 #include <set>
 #include <iostream>
 
-std::vector<StarInfo> StarsAnalyzer::processBitmap(ImageBitmap* bitmap, int luminosityThreshold) {
+std::vector<StarInfo>* StarsAnalyzer::processBitmap(ImageBitmap* bitmap, int luminosityThreshold) {
 	size_t max_x = bitmap->getWidth();
 	size_t max_y = bitmap->getHeigth();
 
@@ -17,10 +17,9 @@ std::vector<StarInfo> StarsAnalyzer::processBitmap(ImageBitmap* bitmap, int lumi
 			}
 		}
 	}
+	//printStarSets();
 
-	printStarSets();
-
-	std::vector<StarInfo> starList = createStarList();
+	std::vector<StarInfo>* starList = createStarList();
 	return starList;
 }
 
@@ -116,8 +115,8 @@ void StarsAnalyzer::addPointToSet(StarPoint starPoint, int setNumber) {
 	}
 }
 
-std::vector<StarInfo> StarsAnalyzer::createStarList() {
-	std::vector<StarInfo> list;
+std::vector<StarInfo>* StarsAnalyzer::createStarList() {
+	std::vector<StarInfo>* list = new std::vector<StarInfo>();
 	int serial = 1;
 	for (auto set : _starSets) {
 		StarInfo star;
@@ -125,7 +124,7 @@ std::vector<StarInfo> StarsAnalyzer::createStarList() {
 		std::vector<StarPoint> points = set.getPoints();
 		for (auto p : points)
 			star.points.push_back(p);
-		list.push_back(star);
+		list->push_back(star);
 	}
 	return list;
 }

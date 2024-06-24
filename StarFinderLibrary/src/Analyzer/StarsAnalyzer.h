@@ -8,7 +8,7 @@ class StarsAnalyzer {
 public:
 	StarsAnalyzer() = default;
 
-	std::vector<StarInfo> processBitmap(ImageBitmap* bitmap, int luminosityThreshold);
+	std::vector<StarInfo>* processBitmap(ImageBitmap* bitmap, int luminosityThreshold);
 
 private:
 	static bool isStarPoint(const ImagePoint& point, int luminosityThreshold);
@@ -19,7 +19,7 @@ private:
 	int createNewSet();
 	void addPointToSet(StarPoint starPoint, int setNumber);
 	void printStarSets();
-	std::vector<StarInfo> createStarList();
+	std::vector<StarInfo>* createStarList();
 
 private:
 	std::vector<StarPointsSet> _starSets;

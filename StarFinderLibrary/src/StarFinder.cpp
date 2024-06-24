@@ -6,8 +6,6 @@
 #include "File/BmpProcessor.h"
 #include "Analyzer/StarsAnalyzer.h"
 
-void processBitmap(ImageBitmap* bitmap, int luminosityThreshold);
-
 extern "C" __declspec(dllexport) void* TestFunc_2() {
 	TestStruct* value = new TestStruct();
 	value->a = 43;
@@ -16,7 +14,7 @@ extern "C" __declspec(dllexport) void* TestFunc_2() {
 	return static_cast<void*>(value);
 }
 
-StarInfo* CalculateStarsLocation(const char* filename, int luminosityThreshold) {
+std::vector<StarInfo>* CalculateStarsLocation(const char* filename, int luminosityThreshold) {
 	if (filename == nullptr || luminosityThreshold <= 0)
 		return nullptr;
 
@@ -24,7 +22,7 @@ StarInfo* CalculateStarsLocation(const char* filename, int luminosityThreshold) 
 	size_t fileSize = 0;
 	const char* data = FileProcessor::ReadFile(imageName, fileSize);
 	if (!data)
-		std::cout << "problem with file reading" << std::endl;
+		std::cout << "problem with file reading, file=" << imageName << std::endl;
 
 	BmpProcessor bmpProc(data, fileSize);
 	ImageBitmap* bitmap = bmpProc.ReadBmpData();
@@ -33,9 +31,8 @@ StarInfo* CalculateStarsLocation(const char* filename, int luminosityThreshold) 
 		std::cout << "problem with bmp file processing" << std::endl;
 
 	StarsAnalyzer starsAnalyzer;
-	std::vector<StarInfo> starList = starsAnalyzer.processBitmap(bitmap, luminosityThreshold);
+	std::vector<StarInfo>* starList = starsAnalyzer.processBitmap(bitmap, luminosityThreshold);
 
-	//processBitmap(bitmap, luminosityThreshold);
 	bitmap->clearNonStarPoints();
 	BmpProcessor bmpClearProc(data, fileSize);
 	bmpClearProc.UpdateBmpData(bitmap);
@@ -44,36 +41,26 @@ StarInfo* CalculateStarsLocation(const char* filename, int luminosityThreshold) 
 
 
 	delete bitmap;
-	return nullptr;// new StarInfo();
-}
-
-void processBitmap(ImageBitmap* bitmap, int luminosityThreshold) {
-	if (!bitmap)
-		return;
-
-	size_t max_x = bitmap->getWidth();
-	size_t max_y = bitmap->getHeigth();
-
-	/*for (size_t x = 0; x < max_x; x++) {
-		for (size_t y = 0; y < max_y; y++) {
-			//printf("%d %d %d\n", rgb[i][j].rgbRed, rgb[i][j].rgbGreen, rgb[i][j].rgbBlue);
-			ImagePoint point = bitmap->getPoint(x, y);
-			printf("%d %d %d\n", point.redValue, point.greenValue, point.blueValue);
-		}
-		printf("\n");
-	}*/
-	for (size_t x = 0; x < max_x; x++) {
-		for (size_t y = 0; y < max_y; y++) {
-			//printf("%d %d %d\n", rgb[i][j].rgbRed, rgb[i][j].rgbGreen, rgb[i][j].rgbBlue);
-			ImagePoint point = bitmap->getPoint(x, y);
-			printf("%d %d %d\n", point.redValue, point.greenValue, point.blueValue);
-		}
-		printf("\n");
-	}
+	delete[] data;
+	return starList;
 }
 
 extern "C" __declspec(dllexport) void* SF_CalculateStarsLocation(const char* filename, int luminosityThreshold) {
-	//__declspec(dllexport)  void* __stdcall SF_CalculateStarsLocation(const char* filename, int luminosityThreshold) {
-		//return nullptr;
 	return static_cast<void*>(CalculateStarsLocation(filename, luminosityThreshold));
+}
+
+#include <fstream>
+#include <iostream>
+
+extern "C" __declspec(dllexport) int TestFunc_3(char* aStr, char* bStr) {
+	std::string a(aStr);
+	std::string b(bStr);
+	std::cout << "a=" << a << " b=" << b << std::endl;
+
+
+	std::ofstream fout;
+	fout.open("log.txt", std::ios::out);
+	fout << "a=" << a << " b=" << b << std::endl;
+	fout.close();
+	return 4849;
 }

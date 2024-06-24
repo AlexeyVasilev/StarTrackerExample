@@ -2,7 +2,6 @@
 
 #include <fstream>
 #include <iostream>
-#include <fstream>
 
 char* FileProcessor::ReadFile(std::string filename, size_t& fileSize) {
 	std::ifstream ifs(filename, std::ifstream::binary);

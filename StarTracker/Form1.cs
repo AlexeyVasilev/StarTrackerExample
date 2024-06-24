@@ -18,14 +18,16 @@ namespace StarTracker
             InitializeComponent();
         }
 
-        [DllImport("StarFinderLibrary.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+        [DllImport("StarFinderLibrary.dll", CharSet = CharSet.Ansi, SetLastError = true, CallingConvention = CallingConvention.Cdecl)]
         private static extern int TestFunc();
-       
+
+        [DllImport("StarFinderLibrary.dll", CharSet = CharSet.Ansi, SetLastError = true, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int TestFunc_3(string a, string b);
 
         private void button1_Click(object sender, EventArgs e)
         {
-            int xSize = 700;
-            int ySize = 700;
+            int xSize = 500;
+            int ySize = 500;
             String fileToDisplay = "star_image_1.bmp";
             Bitmap MyImage;
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -33,8 +35,10 @@ namespace StarTracker
             pictureBox1.ClientSize = new Size(xSize, ySize);
             pictureBox1.Image = (Image)MyImage;
 
+            TestFunc_3("4855", "4977");
+
             int resp = TestFunc();
-            label1.Text = resp.ToString();
+            lFilename.Text = resp.ToString();
         }
     }
 }
