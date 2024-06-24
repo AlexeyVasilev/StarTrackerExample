@@ -13,6 +13,21 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Файлы заголовков\Data">
+      <UniqueIdentifier>{1c574ef2-d474-45a4-bf86-2f217c2780a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\File">
+      <UniqueIdentifier>{3b87144d-2f1e-4878-b197-7a874aed9fa6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\File">
+      <UniqueIdentifier>{c2572750-9901-4b32-a60b-bc5d529a38b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Analyzer">
+      <UniqueIdentifier>{f89c5611-f576-4ab7-8d3c-42379d37917a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Analyzer">
+      <UniqueIdentifier>{8977f6d0-704a-4c0d-8f39-1f2415e3dbb4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -21,6 +36,36 @@
     <ClInclude Include="pch.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="src\StarFinder.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Data\StarInfo.h">
+      <Filter>Файлы заголовков\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Data\StarPoint.h">
+      <Filter>Файлы заголовков\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Data\ImagePoint.h">
+      <Filter>Файлы заголовков\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Data\ImageBitmap.h">
+      <Filter>Файлы заголовков\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="src\File\BmpProcessor.h">
+      <Filter>Файлы заголовков\File</Filter>
+    </ClInclude>
+    <ClInclude Include="src\File\FileProcessor.h">
+      <Filter>Файлы заголовков\File</Filter>
+    </ClInclude>
+    <ClInclude Include="src\File\BmpStruct.h">
+      <Filter>Файлы заголовков\File</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Analyzer\StarsAnalyzer.h">
+      <Filter>Файлы заголовков\Analyzer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Analyzer\StarPointsSet.h">
+      <Filter>Файлы заголовков\Analyzer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -28,6 +73,21 @@
     </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StarFinder.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="src\File\BmpProcessor.cpp">
+      <Filter>Исходные файлы\File</Filter>
+    </ClCompile>
+    <ClCompile Include="src\File\FileProcessor.cpp">
+      <Filter>Исходные файлы\File</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Analyzer\StarsAnalyzer.cpp">
+      <Filter>Исходные файлы\Analyzer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Analyzer\StarPointsSet.cpp">
+      <Filter>Исходные файлы\Analyzer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
