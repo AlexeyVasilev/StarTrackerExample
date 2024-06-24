@@ -22,7 +22,7 @@ StarInfo* CalculateStarsLocation(const char* filename, int luminosityThreshold) 
 
 	std::string imageName(filename);
 	size_t fileSize = 0;
-	char* data = FileProcessor::ReadFile(imageName, fileSize);
+	const char* data = FileProcessor::ReadFile(imageName, fileSize);
 	if (!data)
 		std::cout << "problem with file reading" << std::endl;
 
@@ -33,9 +33,15 @@ StarInfo* CalculateStarsLocation(const char* filename, int luminosityThreshold) 
 		std::cout << "problem with bmp file processing" << std::endl;
 
 	StarsAnalyzer starsAnalyzer;
-	starsAnalyzer.processBitmap(bitmap, luminosityThreshold);
+	std::vector<StarInfo> starList = starsAnalyzer.processBitmap(bitmap, luminosityThreshold);
 
 	//processBitmap(bitmap, luminosityThreshold);
+	bitmap->clearNonStarPoints();
+	BmpProcessor bmpClearProc(data, fileSize);
+	bmpClearProc.UpdateBmpData(bitmap);
+	std::string clearImageName = "clearImage.bmp";
+	FileProcessor::WriteDataToFile(clearImageName, data, fileSize);
+
 
 	delete bitmap;
 	return nullptr;// new StarInfo();

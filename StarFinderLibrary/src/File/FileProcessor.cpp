@@ -24,3 +24,13 @@ char* FileProcessor::ReadFile(std::string filename, size_t& fileSize) {
 	return bytes;
 }
 
+void FileProcessor::WriteDataToFile(std::string filename, const char* data, size_t dataSize) {
+	if (filename.empty() || data == nullptr || dataSize == 0)
+		return;
+
+	std::ofstream fout;
+	fout.open(filename, std::ios::binary | std::ios::out);
+	fout.write(data, dataSize);
+	fout.close();
+}
+

@@ -158,6 +158,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="src\Analyzer\StarPointsSet.h" />
     <ClInclude Include="src\Analyzer\StarsAnalyzer.h" />
+    <ClInclude Include="src\ClearImageCreator.h" />
     <ClInclude Include="src\Data\ImageBitmap.h" />
     <ClInclude Include="src\Data\ImagePoint.h" />
     <ClInclude Include="src\Data\StarInfo.h" />
@@ -177,6 +178,7 @@
     </ClCompile>
     <ClCompile Include="src\Analyzer\StarPointsSet.cpp" />
     <ClCompile Include="src\Analyzer\StarsAnalyzer.cpp" />
+    <ClCompile Include="src\ClearImageCreator.cpp" />
     <ClCompile Include="src\File\BmpProcessor.cpp" />
     <ClCompile Include="src\File\FileProcessor.cpp" />
     <ClCompile Include="src\StarFinder.cpp" />

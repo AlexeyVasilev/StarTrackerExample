@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Data/ImagePoint.h"
+#include "../Data/StarPoint.h"
 
 #include <vector>
 
@@ -8,12 +8,12 @@ class StarPointsSet {
 public:
 	StarPointsSet() = default;
 
-	void add(size_t x, size_t y);
+	void add(StarPoint point);
 	void setSetNumber(int setNumber);
 	int getSetNumber();
-	std::vector<std::pair<size_t, size_t>> getPoints();
+	std::vector<StarPoint> getPoints();
 
 private:
-	std::vector<std::pair<size_t, size_t>> _data;
+	std::vector<StarPoint> _data;
 	int _setNumber{ -1 };
 };

@@ -47,6 +47,18 @@ struct ImageBitmap {
 		return _data[x][y];
 	}
 
+	void clearNonStarPoints() {
+		if (!_data)
+			return;
+
+		for (size_t x = 0; x < _width; x++) {
+			for (size_t y = 0; y < _heigth; y++) {
+				if (_data[x][y].starSetNumber <= 0)
+					_data[x][y].redValue = _data[x][y].greenValue = _data[x][y].blueValue = 0;
+			}
+		}
+	}
+
 	~ImageBitmap() {
 		if (_data) {
 			for (size_t i = 0; i < _width; i++) {

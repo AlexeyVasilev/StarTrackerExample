@@ -1,38 +1,34 @@
 #include "StarsAnalyzer.h"
+#include "../Data/StarPoint.h"
 
 #include <set>
 #include <iostream>
 
-void StarsAnalyzer::processBitmap(ImageBitmap* bitmap, int luminosityThreshold) {
+std::vector<StarInfo> StarsAnalyzer::processBitmap(ImageBitmap* bitmap, int luminosityThreshold) {
 	size_t max_x = bitmap->getWidth();
 	size_t max_y = bitmap->getHeigth();
 
 	for (size_t x = 0; x < max_x; x++) {
 		for (size_t y = 0; y < max_y; y++) {
 			ImagePoint point = bitmap->getPoint(x, y);
-			if (isStarPoint(point, luminosityThreshold))
-				processStarPoint(x, y, bitmap, luminosityThreshold);
-
-			
+			if (isStarPoint(point, luminosityThreshold)) {
+				StarPoint starPoint(point.redValue, point.greenValue, point.blueValue, x, y);
+				processStarPoint(starPoint, bitmap, luminosityThreshold);
+			}
 		}
 	}
-	int a = 2;
-	a++;
 
-	for (auto set : _starSets) {
-		std::cout << "set " << set.getSetNumber() << std::endl;
-		std::vector<std::pair<size_t, size_t>> points = set.getPoints();
-		for (auto p : points) {
-			std::cout << "x=" << p.first << " y=" << p.second << std::endl;
-		}
-	}
+	printStarSets();
+
+	std::vector<StarInfo> starList = createStarList();
+	return starList;
 }
 
-void StarsAnalyzer::processStarPoint(size_t x, size_t y, ImageBitmap* bitmap, int luminosityThreshold) {
+void StarsAnalyzer::processStarPoint(StarPoint starPoint, ImageBitmap* bitmap, int luminosityThreshold) {
 	size_t max_x = bitmap->getWidth();
 	size_t max_y = bitmap->getHeigth();
 
-	std::vector<std::pair<size_t, size_t>> neighborPoints = getNeighborPoints(x, y, max_x, max_y);
+	std::vector<std::pair<size_t, size_t>> neighborPoints = getNeighborPoints(starPoint.x, starPoint.y, max_x, max_y);
 	std::set<int> starSetsNumbers;
 	for (auto p : neighborPoints) {
 		ImagePoint neighborPoint = bitmap->getPoint(p.first, p.second);
@@ -49,13 +45,13 @@ void StarsAnalyzer::processStarPoint(size_t x, size_t y, ImageBitmap* bitmap, in
 	}
 	else if (starSetsNumbers.size() == 1) {
 		int setNumber = *starSetsNumbers.begin();
-		addPointToSet(x, y, setNumber);
-		bitmap->updateSetNumber(x, y, setNumber);
+		addPointToSet(starPoint, setNumber);
+		bitmap->updateSetNumber(starPoint.x, starPoint.y, setNumber);
 	}
 	else if (starSetsNumbers.size() == 0) {
 		int setNumber = createNewSet();
-		addPointToSet(x, y, setNumber);
-		bitmap->updateSetNumber(x, y, setNumber);
+		addPointToSet(starPoint, setNumber);
+		bitmap->updateSetNumber(starPoint.x, starPoint.y, setNumber);
 	}
 }
 
@@ -112,11 +108,36 @@ int StarsAnalyzer::createNewSet() {
 	return set.getSetNumber();
 }
 
-void StarsAnalyzer::addPointToSet(size_t x, size_t y, int setNumber) {
+void StarsAnalyzer::addPointToSet(StarPoint starPoint, int setNumber) {
 	for (auto& set : _starSets) {
 		if (set.getSetNumber() == setNumber) {
-			set.add(x, y);
+			set.add(starPoint);
 		}
 	}
 }
 
+std::vector<StarInfo> StarsAnalyzer::createStarList() {
+	std::vector<StarInfo> list;
+	int serial = 1;
+	for (auto set : _starSets) {
+		StarInfo star;
+		star.serialNumber = serial++;
+		std::vector<StarPoint> points = set.getPoints();
+		for (auto p : points)
+			star.points.push_back(p);
+		list.push_back(star);
+	}
+	return list;
+}
+
+void StarsAnalyzer::printStarSets() {
+	for (auto set : _starSets) {
+		std::cout << "set " << set.getSetNumber() << std::endl;
+		std::vector<StarPoint> points = set.getPoints();
+		for (auto p : points) {
+			std::cout << "| x=" << p.x << " y=" << p.y
+				<< " | r=" << p.redValue << " g=" << p.greenValue
+				<< " b=" << p.blueValue << std::endl;
+		}
+	}
+}

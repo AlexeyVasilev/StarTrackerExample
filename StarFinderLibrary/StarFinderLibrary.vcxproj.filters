@@ -66,6 +66,9 @@
     <ClInclude Include="src\Analyzer\StarPointsSet.h">
       <Filter>Файлы заголовков\Analyzer</Filter>
     </ClInclude>
+    <ClInclude Include="src\ClearImageCreator.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -88,6 +91,9 @@
     </ClCompile>
     <ClCompile Include="src\Analyzer\StarPointsSet.cpp">
       <Filter>Исходные файлы\Analyzer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ClearImageCreator.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

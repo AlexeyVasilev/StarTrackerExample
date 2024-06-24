@@ -15,4 +15,6 @@ struct StarPoint {
         x = xVal;
         y = yVal;
     }
+
+    StarPoint() = default;
 };
