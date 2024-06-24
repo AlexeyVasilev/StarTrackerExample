@@ -34,7 +34,7 @@ int main()
     }
 
     const int luminosityThreshold = 100;
-    std::string filename{ "star_image_1.bmp" };
+    std::string filename{ "default_stars_image.bmp" };
     void* ptr = findStarsFunc(filename.c_str(), luminosityThreshold);
 
     std::vector<StarInfo>* info = static_cast<std::vector<StarInfo>*>(ptr);

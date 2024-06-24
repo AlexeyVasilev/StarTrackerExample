@@ -35,12 +35,13 @@ namespace StarTracker
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tbResult = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.tbLuminosity = new System.Windows.Forms.TextBox();
             this.bUpdate = new System.Windows.Forms.Button();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -101,15 +102,16 @@ namespace StarTracker
             this.pictureBox2.TabIndex = 5;
             this.pictureBox2.TabStop = false;
             // 
-            // textBox1
+            // tbResult
             // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.textBox1.Location = new System.Drawing.Point(60, 691);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(1233, 148);
-            this.textBox1.TabIndex = 5;
+            this.tbResult.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.tbResult.Location = new System.Drawing.Point(60, 691);
+            this.tbResult.Multiline = true;
+            this.tbResult.Name = "tbResult";
+            this.tbResult.ReadOnly = true;
+            this.tbResult.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.tbResult.Size = new System.Drawing.Size(1233, 148);
+            this.tbResult.TabIndex = 5;
             // 
             // label2
             // 
@@ -138,13 +140,13 @@ namespace StarTracker
             this.label3.TabIndex = 8;
             this.label3.Text = "Lminosity threshold";
             // 
-            // textBox2
+            // tbLuminosity
             // 
-            this.textBox2.Location = new System.Drawing.Point(674, 35);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(37, 20);
-            this.textBox2.TabIndex = 9;
-            this.textBox2.Text = "100";
+            this.tbLuminosity.Location = new System.Drawing.Point(674, 35);
+            this.tbLuminosity.Name = "tbLuminosity";
+            this.tbLuminosity.Size = new System.Drawing.Size(37, 20);
+            this.tbLuminosity.TabIndex = 9;
+            this.tbLuminosity.Text = "100";
             // 
             // bUpdate
             // 
@@ -154,6 +156,11 @@ namespace StarTracker
             this.bUpdate.TabIndex = 10;
             this.bUpdate.Text = "Update";
             this.bUpdate.UseVisualStyleBackColor = true;
+            this.bUpdate.Click += new System.EventHandler(this.bUpdate_Click);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // Form1
             // 
@@ -162,11 +169,11 @@ namespace StarTracker
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(1352, 868);
             this.Controls.Add(this.bUpdate);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.tbLuminosity);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.tbResult);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.lFilename);
@@ -190,12 +197,13 @@ namespace StarTracker
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox tbResult;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox tbLuminosity;
         private System.Windows.Forms.Button bUpdate;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
 

@@ -6,15 +6,13 @@
 #include "File/BmpProcessor.h"
 #include "Analyzer/StarsAnalyzer.h"
 
-extern "C" __declspec(dllexport) void* TestFunc_2() {
-	TestStruct* value = new TestStruct();
-	value->a = 43;
-	std::list<int> l = { 1,2,3 };
-	value->l = l;
-	return static_cast<void*>(value);
-}
+#include <fstream>
+#include <iostream>
+#include <iomanip>
 
-std::vector<StarInfo>* CalculateStarsLocation(const char* filename, int luminosityThreshold) {
+void writeResultToFile(std::string resultFileName, std::vector<StarInfo>* starInfo);
+
+static std::vector<StarInfo>* CalculateStarsLocation(const char* filename, std::string clearImageFile, int luminosityThreshold) {
 	if (filename == nullptr || luminosityThreshold <= 0)
 		return nullptr;
 
@@ -33,24 +31,71 @@ std::vector<StarInfo>* CalculateStarsLocation(const char* filename, int luminosi
 	StarsAnalyzer starsAnalyzer;
 	std::vector<StarInfo>* starList = starsAnalyzer.processBitmap(bitmap, luminosityThreshold);
 
-	bitmap->clearNonStarPoints();
-	BmpProcessor bmpClearProc(data, fileSize);
-	bmpClearProc.UpdateBmpData(bitmap);
-	std::string clearImageName = "clearImage.bmp";
-	FileProcessor::WriteDataToFile(clearImageName, data, fileSize);
+	if (!clearImageFile.empty()) {
+		bitmap->clearNonStarPoints();
+		BmpProcessor bmpClearProc(data, fileSize);
+		bmpClearProc.UpdateBmpData(bitmap);
+		FileProcessor::WriteDataToFile(clearImageFile, data, fileSize);
+	}
 
-
-	delete bitmap;
-	delete[] data;
+	if (bitmap)
+		delete bitmap;
+	if (data)
+		delete[] data;
 	return starList;
 }
 
 extern "C" __declspec(dllexport) void* SF_CalculateStarsLocation(const char* filename, int luminosityThreshold) {
-	return static_cast<void*>(CalculateStarsLocation(filename, luminosityThreshold));
+	std::string clearImageFile = "clear_image.bmp";
+	return static_cast<void*>(CalculateStarsLocation(filename, clearImageFile, luminosityThreshold));
 }
 
-#include <fstream>
-#include <iostream>
+extern "C" __declspec(dllexport) int SF_CalcStarsLocation(const char* filename, const char* resultFile, const char* clearImageName, int luminosityThreshold) {
+	std::vector<StarInfo>* starInfo = nullptr;
+	int result = -1;
+	try {
+		starInfo = CalculateStarsLocation(filename, std::string(clearImageName), luminosityThreshold);
+
+		writeResultToFile(std::string(resultFile), starInfo);
+
+		if (starInfo != nullptr) {
+			delete starInfo;
+			result = 0;
+		}
+	}
+	catch (std::exception ex) {
+		std::ofstream fout;
+		fout.open("library_err_log.txt", std::ios::out);
+		fout << ex.what() << std::endl;
+		fout.close();
+
+	}
+	
+	return result;
+}
+
+static void writeResultToFile(std::string resultFileName, std::vector<StarInfo>* starInfo) {
+	if (resultFileName.empty() || starInfo == nullptr)
+		return;
+
+	std::ofstream fout;
+	fout.open(resultFileName, std::ios::out);
+	
+	fout << " " << starInfo->size() << "  stars found." << std::endl;
+	for (auto s : *starInfo) {
+		fout << "Star #" << s.serialNumber << std::endl;
+		fout << "   Points:" << std::endl;
+		size_t pNumber = 1;
+		for (auto p : s.points) {
+			fout << "   " << std::setw(2) << pNumber++ << ": ["
+				<< p.x << ", " << p.y << "] "
+				<< "R(" << p.redValue << "), G(" << p.greenValue
+				<< "), B(" << p.blueValue << ")" << std::endl;
+		}
+		fout << std::endl;
+	}
+	fout.close();
+}
 
 extern "C" __declspec(dllexport) int TestFunc_3(char* aStr, char* bStr) {
 	std::string a(aStr);
