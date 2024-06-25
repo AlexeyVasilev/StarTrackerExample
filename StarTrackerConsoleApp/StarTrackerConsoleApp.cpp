@@ -33,7 +33,7 @@ int main()
         return EXIT_FAILURE;
     }
 
-    const int luminosityThreshold = 100;
+    const int luminosityThreshold = 80;
     std::string filename{ "default_stars_image.bmp" };
     void* ptr = findStarsFunc(filename.c_str(), luminosityThreshold);
 
@@ -54,6 +54,8 @@ void printStarsInfo(std::vector<StarInfo>* info) {
 
     for (auto s : *info) {
         std::cout << "Star #" << s.serialNumber << std::endl;
+        std::cout << "   Center of mass: [" << s.centerOfMass.x <<
+            ", " << s.centerOfMass.y << "]" << std::endl;
         std::cout << "   Points:" << std::endl;
         size_t pNumber = 1;
         for (auto p : s.points) {

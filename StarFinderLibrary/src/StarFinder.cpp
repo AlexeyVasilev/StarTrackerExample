@@ -11,6 +11,7 @@
 #include <iomanip>
 
 void writeResultToFile(std::string resultFileName, std::vector<StarInfo>* starInfo);
+void markCenter(ImageBitmap* bitmap, std::vector<StarInfo>* starList);
 
 static std::vector<StarInfo>* CalculateStarsLocation(const char* filename, std::string clearImageFile, int luminosityThreshold) {
 	if (filename == nullptr || luminosityThreshold <= 0)
@@ -33,6 +34,7 @@ static std::vector<StarInfo>* CalculateStarsLocation(const char* filename, std::
 
 	if (!clearImageFile.empty()) {
 		bitmap->clearNonStarPoints();
+		markCenter(bitmap, starList);
 		BmpProcessor bmpClearProc(data, fileSize);
 		bmpClearProc.UpdateBmpData(bitmap);
 		FileProcessor::WriteDataToFile(clearImageFile, data, fileSize);
@@ -68,7 +70,6 @@ extern "C" __declspec(dllexport) int SF_CalcStarsLocation(const char* filename, 
 		fout.open("library_err_log.txt", std::ios::out);
 		fout << ex.what() << std::endl;
 		fout.close();
-
 	}
 	
 	return result;
@@ -84,6 +85,8 @@ static void writeResultToFile(std::string resultFileName, std::vector<StarInfo>*
 	fout << " " << starInfo->size() << "  stars found." << std::endl;
 	for (auto s : *starInfo) {
 		fout << "Star #" << s.serialNumber << std::endl;
+		fout << "   Center of mass: [" << s.centerOfMass.x <<
+			", " << s.centerOfMass.y << "]" << std::endl;
 		fout << "   Points:" << std::endl;
 		size_t pNumber = 1;
 		for (auto p : s.points) {
@@ -95,6 +98,15 @@ static void writeResultToFile(std::string resultFileName, std::vector<StarInfo>*
 		fout << std::endl;
 	}
 	fout.close();
+}
+
+static void markCenter(ImageBitmap* bitmap, std::vector<StarInfo>* starList) {
+	if (bitmap == nullptr || starList == nullptr)
+		return;
+
+	for (auto s : *starList) {
+		bitmap->setValue(s.centerOfMass.x, s.centerOfMass.y, 255, 0, 0);
+	}
 }
 
 extern "C" __declspec(dllexport) int TestFunc_3(char* aStr, char* bStr) {

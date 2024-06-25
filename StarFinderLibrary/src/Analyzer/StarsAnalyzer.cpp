@@ -1,10 +1,12 @@
 #include "StarsAnalyzer.h"
 #include "../Data/StarPoint.h"
 
-#include <set>
 #include <iostream>
 
 std::vector<StarInfo>* StarsAnalyzer::processBitmap(ImageBitmap* bitmap, int luminosityThreshold) {
+	if (bitmap == nullptr)
+		return nullptr;
+
 	size_t max_x = bitmap->getWidth();
 	size_t max_y = bitmap->getHeigth();
 
@@ -39,19 +41,18 @@ void StarsAnalyzer::processStarPoint(StarPoint starPoint, ImageBitmap* bitmap, i
 		}
 	}
 
+	int setNumber = -1;
 	if (starSetsNumbers.size() > 1) {
-		// merge 
+		setNumber = mergeStarSets(starSetsNumbers, bitmap);
 	}
 	else if (starSetsNumbers.size() == 1) {
-		int setNumber = *starSetsNumbers.begin();
-		addPointToSet(starPoint, setNumber);
-		bitmap->updateSetNumber(starPoint.x, starPoint.y, setNumber);
+		setNumber = *starSetsNumbers.begin();
 	}
 	else if (starSetsNumbers.size() == 0) {
-		int setNumber = createNewSet();
-		addPointToSet(starPoint, setNumber);
-		bitmap->updateSetNumber(starPoint.x, starPoint.y, setNumber);
+		setNumber = createNewSet();
 	}
+	addPointToSet(starPoint, setNumber);
+	bitmap->updateSetNumber(starPoint.x, starPoint.y, setNumber);
 }
 
 bool StarsAnalyzer::isStarPoint(const ImagePoint& point, int luminosityThreshold) {
@@ -124,6 +125,7 @@ std::vector<StarInfo>* StarsAnalyzer::createStarList() {
 		std::vector<StarPoint> points = set.getPoints();
 		for (auto p : points)
 			star.points.push_back(p);
+		calcCenterPoint(star);
 		list->push_back(star);
 	}
 	return list;
@@ -139,4 +141,58 @@ void StarsAnalyzer::printStarSets() {
 				<< " b=" << p.blueValue << std::endl;
 		}
 	}
+}
+
+void StarsAnalyzer::calcCenterPoint(StarInfo& info) {
+	double sum_x = 0;
+	double sum_y = 0;
+	for (auto p : info.points) {
+		sum_x += p.x;
+		sum_y += p.y;
+	}
+	size_t size = info.points.size();
+	if (size > 0) {
+		float x = sum_x / (double)size;
+		float y = sum_y / (double)size;
+		info.centerOfMass.x = (int)(x + 0.5);
+		info.centerOfMass.y = (int)(y + 0.5);
+
+		//std::cout << "center fx=" << x << " fy=" << y <<
+		//	" x=" << info.centerOfMass.x << " y=" << info.centerOfMass.y << std::endl;
+	}
+}
+
+int StarsAnalyzer::mergeStarSets(std::set<int> intersectingSetsNumbers, ImageBitmap* bitmap) {
+	if (bitmap == nullptr)
+		return -1;
+
+	std::vector<StarPoint> commonPoints;
+	for (std::vector<StarPointsSet>::iterator it = _starSets.begin(); it != _starSets.end();)
+	{
+		if (isintersectingSet(it->getSetNumber(), intersectingSetsNumbers)) {
+			for (auto p : it->getPoints()) {
+				commonPoints.push_back(p);
+			}
+			it = _starSets.erase(it);
+		}
+		else
+			++it;
+	}
+
+	int newSetNumbr = createNewSet();
+	for (auto p : commonPoints) {
+		addPointToSet(p, newSetNumbr);
+		bitmap->updateSetNumber(p.x, p.y, newSetNumbr);
+	}
+	
+	return newSetNumbr;
+
+}
+
+bool StarsAnalyzer::isintersectingSet(int setNumber, std::set<int> intersectingSetsNumbers) {
+	for (auto n : intersectingSetsNumbers) {
+		if (setNumber == n)
+			return true;
+	}
+	return false;
 }

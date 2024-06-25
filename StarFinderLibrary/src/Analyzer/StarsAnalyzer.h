@@ -4,6 +4,8 @@
 #include "StarPointsSet.h"
 #include "../Data/StarInfo.h"
 
+#include <set>
+
 class StarsAnalyzer {
 public:
 	StarsAnalyzer() = default;
@@ -20,6 +22,9 @@ private:
 	void addPointToSet(StarPoint starPoint, int setNumber);
 	void printStarSets();
 	std::vector<StarInfo>* createStarList();
+	static void calcCenterPoint(StarInfo& info);
+	int mergeStarSets(std::set<int> intersectingSetsNumbers, ImageBitmap* bitmap);
+	bool isintersectingSet(int setNumber, std::set<int> intersectingSetsNumbers);
 
 private:
 	std::vector<StarPointsSet> _starSets;

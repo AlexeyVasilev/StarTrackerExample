@@ -178,8 +178,9 @@ namespace StarTracker
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.lFilename);
             this.Controls.Add(this.bOpenFile);
+            this.MaximizeBox = false;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Star tracker";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);

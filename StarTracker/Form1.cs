@@ -72,8 +72,7 @@ namespace StarTracker
                 if (calcResult == 0)
                 {
                     showClearImage(clearImageName);
-                    showCalcResult(resultFileName);
-                    //pictureBox2.Visible = true;
+                    showCalcResult(resultFileName);     
                 }
                 else
                 {
