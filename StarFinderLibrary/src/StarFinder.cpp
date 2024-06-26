@@ -1,5 +1,3 @@
-#include "../pch.h"
-
 #include "StarFinder.h"
 #include "Data/StarInfo.h"
 #include "File/FileProcessor.h"
@@ -107,17 +105,4 @@ static void markCenter(ImageBitmap* bitmap, std::vector<StarInfo>* starList) {
 	for (auto s : *starList) {
 		bitmap->setValue(s.centerOfMass.x, s.centerOfMass.y, 255, 0, 0);
 	}
-}
-
-extern "C" __declspec(dllexport) int TestFunc_3(char* aStr, char* bStr) {
-	std::string a(aStr);
-	std::string b(bStr);
-	std::cout << "a=" << a << " b=" << b << std::endl;
-
-
-	std::ofstream fout;
-	fout.open("log.txt", std::ios::out);
-	fout << "a=" << a << " b=" << b << std::endl;
-	fout.close();
-	return 4849;
 }

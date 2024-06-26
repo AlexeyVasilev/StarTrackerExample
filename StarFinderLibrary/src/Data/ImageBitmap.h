@@ -66,7 +66,6 @@ struct ImageBitmap {
 			}
 			delete[] _data;
 		}
-
 	}
 
 private:
