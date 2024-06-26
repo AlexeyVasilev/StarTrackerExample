@@ -1,8 +1,8 @@
 Даное решение состоит из трех проектов:
 
 **StarFinderLibrary**.
-Библиотека DLL для поиска информации о звезд в файлах BMP.
-На выходе передает StarFinderLibrary static std::vector<StarInfo>*
+Библиотека DLL для поиска информации о звездах в файлах BMP.
+На выходе передает **static std::vector<StarInfo>***
 
 **StarTrackerConsoleApp**
 Консольное приложение, которое вызывает библиотеку StarFinderLibrary
