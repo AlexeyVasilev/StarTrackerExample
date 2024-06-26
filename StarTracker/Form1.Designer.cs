@@ -65,7 +65,7 @@ namespace StarTracker
             this.bOpenFile.Text = "Open file";
             this.bOpenFile.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             this.bOpenFile.UseVisualStyleBackColor = true;
-            this.bOpenFile.Click += new System.EventHandler(this.button1_Click);
+            this.bOpenFile.Click += new System.EventHandler(this.openFile_Click);
             // 
             // lFilename
             // 

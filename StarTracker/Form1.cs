@@ -32,12 +32,9 @@ namespace StarTracker
         }
 
         [DllImport("StarFinderLibrary.dll", CharSet = CharSet.Ansi, SetLastError = true, CallingConvention = CallingConvention.Cdecl)]
-        private static extern int TestFunc_3(string a, string b);
-
-        [DllImport("StarFinderLibrary.dll", CharSet = CharSet.Ansi, SetLastError = true, CallingConvention = CallingConvention.Cdecl)]
         private static extern int SF_CalcStarsLocation(string inputBmpFile, string resultFile, string clearBmpFile, int luminosityThreshold);
 
-        private void button1_Click(object sender, EventArgs e)
+        private void openFile_Click(object sender, EventArgs e)
         {
             if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
                 return;
